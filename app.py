@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, make_response
 
 app = Flask(__name__)
 
@@ -6,6 +6,14 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/blogs/confirmation_success')
+def success():
+    return render_template('success.html')
+
+@app.route('/blogs/confirmation_failure')
+def failure():
+    return render_template('failure.html')
 
 
 @app.route('/blogs')
@@ -16,7 +24,32 @@ def blogs():
 def subscribe():
     email = request.form['email']
     print("email: " + email)
+    # generate custom key to verify email
+    key = ""
+    
+    # function from emailing module
+    # send_confirm_email(key, email)
+    
     return redirect(url_for('blogs'))
+
+# get route, after validation, redirect to proper page
+@app.route('/confirm/<key>')
+def confirm(key):
+    
+    # check validity of key, whether it has been used before or if it is expected key
+    is_valid = True
+    print("captured: " + key)
+    
+    
+    # redirect to confirmation to subscription page
+    if is_valid:
+        
+        # add user to mailing list
+        
+        return redirect(url_for('success'))
+    else:
+        return redirect(url_for('failure'))
+    
 
 
 @app.route('/inquiry')
@@ -30,11 +63,14 @@ def catch_quote():
     email = request.form['email']
     company = request.form['company']
     message = request.form['message']
+    
+    # call to emailing module to send email about quote
+    
     return redirect(url_for('quote'))
 
 
-@app.route('/<path>')
-def catch_all(path):
+@app.errorhandler(404)
+def catch_all(e):
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
