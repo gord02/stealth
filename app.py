@@ -1,30 +1,36 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    return 'hello world'
-    # return render_template('index.html')
+    return render_template('home.html')
 
 
 @app.route('/blogs')
 def blogs():
-    return ' blogs'
+    return render_template('blog.html')
 
-@app.route('/subscribe')
+@app.route('/subscribe', methods=['POST'])
 def subscribe():
-    return redirect(url_for('/blogs'))
+    email = request.form['email']
+    print("email: " + email)
+    return redirect(url_for('blogs'))
 
 
 @app.route('/inquiry')
 def quote():
-    return 'form page'
+    return render_template('quote.html')
 
-@app.route('/catch-quote')
+@app.route('/catch-quote',  methods=['POST'])
 def catch_quote():
-    return redirect(url_for('/inquiry'))
+    first_name = request.form['first-name']
+    last_name = request.form['last-name']
+    email = request.form['email']
+    company = request.form['company']
+    message = request.form['message']
+    return redirect(url_for('quote'))
 
 
 @app.route('/<path>')

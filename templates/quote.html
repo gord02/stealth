@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        main {
+            margin-top: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f2f2f2;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/catch-quote" method="post">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" name="first-name" placeholder="">
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" name="last-name" placeholder="">
+        </div>
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="">
+        </div>
+        <div class="field">
+            <label>Company name</label>
+            <input type="text" name="company" placeholder="">
+        </div>
+        <div class="field">
+            <label>Text</label>
+            <textarea spellcheck="true" name="message"></textarea>
+        </div>
+
+  
+        <button class="ui button" type="submit">Submit</button>
+      </form>
+
+
+    </body>
+</html>
