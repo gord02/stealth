@@ -101,4 +101,18 @@ def unsubscribe(user_email):
         return False
     
 
-# unsubscribe("email@mail.com") 
+def get_mailing_list():
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    try:
+        mydb = client[db_name]
+        blog_list = mydb["blog_list"]
+        users = []
+        documents = blog_list.find()
+        for d in documents:
+            users.append(d['email'])
+        return users
+
+    except Exception as e:
+        print("failed to get mailing list: "+ e)
+        return []
+    
