@@ -9,8 +9,8 @@ to_email = 'gordon.hamilton1110@gmail.com'
 site_email  = 'gordon.site.mailing@gmail.com'
     
     
-def confirm_sub(key, email):
-    confirm_link = f'<a href="http://127.0.0.1:{port_number}/confirm/{key}">Confirm </a>' 
+def confirm_sub(email):
+    confirm_link = f'<a href="http://127.0.0.1:{port_number}/confirm/{email}">Confirm </a>' 
     
     message = Mail(
     from_email= site_email,
