@@ -24,6 +24,21 @@ def failure():
 def blogs():
     return render_template('blog.html')
 
+
+@app.route('/create-blog', methods=['POST'])
+def post_blog():
+    return render_template('blog_form.html')
+
+@app.route('/get-blog')
+def post_blog():
+    
+    title = request.form['title']
+    name = request.form['name']
+    content = request.form['content']
+    
+    return redirect(url_for('post_blog'))
+
+
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     email = request.form['email']

@@ -26,7 +26,22 @@ def check():
 
     except Exception as e:
         print("failed to create user with error: "+ e)
-# check()     
+
+def add_blog(title, name, content):
+    blog = {
+        "title": title,
+        "name": name, 
+        "content": content
+    }
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    try:
+        mydb = client[db_name]
+        blogs = mydb["blogs"]
+        blogs.insert_one(blog)
+
+    except Exception as e:
+        print("failed to add blog: "+ e)
+ 
 
 def add_confirmation(email):
     user = {
