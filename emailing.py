@@ -64,4 +64,3 @@ def send_blog_noti():
     except Exception as e:
         print("error when trying to confirm subscription: "+ e.message)
     
-    
