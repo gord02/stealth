@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response
 
+import emailing
+
 app = Flask(__name__)
 
 
@@ -28,7 +30,7 @@ def subscribe():
     key = ""
     
     # function from emailing module
-    # send_confirm_email(key, email)
+    emailing.confirm_sub(key, email)
     
     return redirect(url_for('blogs'))
 
@@ -60,11 +62,13 @@ def quote():
 def catch_quote():
     first_name = request.form['first-name']
     last_name = request.form['last-name']
+    name =  first_name + " " + last_name 
     email = request.form['email']
     company = request.form['company']
     message = request.form['message']
     
     # call to emailing module to send email about quote
+    emailing.quote_inquiry(name, email, company, message)
     
     return redirect(url_for('quote'))
 
