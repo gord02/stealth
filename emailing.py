@@ -9,8 +9,6 @@ import db
 port_number = 5000 # temporary until domain name and url is decided upon 
 to_email = 'gordon.hamilton1110@gmail.com'
 site_email  = 'gordon.site.mailing@gmail.com'
-    
-print("bb") 
 
 def confirm_sub(email):
     confirm_link = f'<a href="http://127.0.0.1:{port_number}/confirm/{email}">Confirm </a>' 
