@@ -1,12 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response
 
 import emailing
+import db
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
+    # db.add_confirmation("hord@gmail.com")
     return render_template('home.html')
 
 @app.route('/blogs/confirmation_success')
@@ -25,34 +27,38 @@ def blogs():
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     email = request.form['email']
-    print("email: " + email)
-    # generate custom key to verify email
-    key = ""
     
-    # function from emailing module
-    emailing.confirm_sub(key, email)
+    db.add_confirmation(email)
     
+    # send confirmation email
+    emailing.confirm_sub(email)
     return redirect(url_for('blogs'))
 
 # get route, after validation, redirect to proper page
-@app.route('/confirm/<key>')
-def confirm(key):
+@app.route('/confirm/<email>')
+def confirm(email):
     
-    # check validity of key, whether it has been used before or if it is expected key
-    is_valid = True
-    print("captured: " + key)
-    
+    is_valid = db.check_confirmation(email)
     
     # redirect to confirmation to subscription page
     if is_valid:
-        
         # add user to mailing list
-        
+        db.add_user(email)
         return redirect(url_for('success'))
     else:
         return redirect(url_for('failure'))
     
-
+# get route, after validation, redirect to proper page
+@app.route('/unsubscribe/<email>')
+def unsubscribe(email):
+    
+    is_valid = db.unsubscribe(email)
+    
+    # redirect to confirmation to subscription page
+    if is_valid:
+        return redirect(url_for('success'))
+    else:
+        return redirect(url_for('failure'))
 
 @app.route('/inquiry')
 def quote():
