@@ -10,7 +10,8 @@ port_number = 5000 # temporary until domain name and url is decided upon
 to_email = 'gordon.hamilton1110@gmail.com'
 site_email  = 'gordon.site.mailing@gmail.com'
     
-    
+print("bb") 
+
 def confirm_sub(email):
     confirm_link = f'<a href="http://127.0.0.1:{port_number}/confirm/{email}">Confirm </a>' 
     
@@ -36,7 +37,7 @@ def quote_inquiry(name, email, company, user_message):
     from_email= site_email,
     to_emails=to_email,
     subject=f'Quote Request from {name} at {company}',
-    html_content = user_message)
+    plain_text_content = user_message)
 
     try:
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY')) 
@@ -54,7 +55,7 @@ def send_blog_noti():
     from_email= site_email,
     to_emails= mailing_list,
     subject='New Blog on Stealth!',
-    html_content= "")
+    plain_text_content= "")
 
     try:
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
@@ -62,4 +63,5 @@ def send_blog_noti():
 
     except Exception as e:
         print("error when trying to confirm subscription: "+ e.message)
+    
     
