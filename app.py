@@ -3,6 +3,8 @@ from flask import Flask, render_template, redirect, url_for, request, make_respo
 import emailing
 import db
 
+
+
 app = Flask(__name__)
 
 
@@ -23,6 +25,30 @@ def failure():
 @app.route('/blogs')
 def blogs():
     return render_template('blog.html')
+
+
+@app.route('/create-blog',  methods=['GET', 'POST'])
+def post_blog():
+    if request.method == "GET":
+        return render_template('login.html')
+    else:
+        user = request.form['user']
+        password = request.form['password']
+        
+        valid = db.valid_auth(user, password)
+        if valid:
+            return render_template('blog_form.html')
+        else:
+            return render_template('failed_login.html')
+
+@app.route('/get-blog', methods=['POST'])
+def capture_blog():
+    title = request.form['title']
+    name = request.form['name']
+    content = request.form['content']
+    db.add_blog(title, name, content)
+    return redirect(url_for('post_blog'))
+
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():

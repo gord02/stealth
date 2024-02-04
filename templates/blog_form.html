@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get a Quote / Inquiry Form</title>
+    <title>Blog Submission Form</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             display: flex;
@@ -53,7 +52,7 @@
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #3498db;
             color: #fff;
             padding: 10px;
             border: none;
@@ -63,40 +62,25 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Get a Quote / Inquiry</h1>
+    <h1>Blog Submission Form</h1>
+    <form action="/get-blog" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
 
+        <label for="name">Author:</label>
+        <input type="text" id="name" name="name" required>
 
-        <form action="/catch-quote" method="post">
-            
-        <div class="field">
-            <label>First Name</label>
-            <input type="text" name="first-name" placeholder="">
-          </div>
-          <div class="field">
-            <label>Last Name</label>
-            <input type="text" name="last-name" placeholder="">
-          </div>
-          <div class="field">
-              <label>Email</label>
-              <input type="email" name="email" placeholder="">
-          </div>
-          <div class="field">
-              <label>Company name</label>
-              <input type="text" name="company" placeholder="">
-          </div>
-          <div class="field">
-              <label>Text</label>
-              <textarea spellcheck="true" name="message"></textarea>
-          </div>
+        <label for="content">Blog Content:</label>
+        <textarea id="content" name="content" rows="6" required></textarea>
 
-        <button type="submit">Submit Inquiry</button>
+        <button type="submit">Submit Blog</button>
     </form>
 </div>
 

@@ -4,11 +4,19 @@ import time
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
+
 mongo_pass = os.environ.get('mongoDBpass')
 db_name = "stealth"
 collection_name = "mailing"
 
 uri = f"mongodb+srv://gordonh:{mongo_pass}@cluster0.ki54dtd.mongodb.net/?retryWrites=true&w=majority"
+
+def valid_auth(user, password):
+    BLOG_AUTH_USER = os.environ.get('BLOG_AUTH_USER')
+    BLOG_AUTH_PASSWORD = os.environ.get('BLOG_AUTH_PASSWORD') 
+    if BLOG_AUTH_USER == user and BLOG_AUTH_PASSWORD == password:
+        return True
+    return False
 
 def check():
     print(uri)
@@ -26,7 +34,22 @@ def check():
 
     except Exception as e:
         print("failed to create user with error: "+ e)
-# check()     
+
+def add_blog(title, name, content):
+    blog = {
+        "title": title,
+        "name": name, 
+        "content": content
+    }
+    client = MongoClient(uri, server_api=ServerApi('1'))
+    try:
+        mydb = client[db_name]
+        blogs = mydb["blogs"]
+        blogs.insert_one(blog)
+
+    except Exception as e:
+        print("failed to add blog: "+ e)
+ 
 
 def add_confirmation(email):
     user = {
